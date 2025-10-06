@@ -2,6 +2,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Header() {
@@ -16,38 +17,38 @@ export default function Header() {
   }, []);
 
   return (
-    <header 
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-        scrolled 
-          ? "bg-white/95 backdrop-blur-sm shadow-sm border-b border-gray-100" 
+    <header
+      className={`sticky top-0 z-50 w-full transition-all duration-300 font-sans ${
+        scrolled
+          ? "bg-white/95 backdrop-blur-lg shadow-sm border-b border-gray-200/70"
           : "bg-white"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-center h-16 sm:h-20">
-          <div className="flex items-center space-x-3">
-            {/* GDG Logo - replace with your actual logo */}
+          <Link href="/" className="flex items-center space-x-3 group">
             <div className="flex-shrink-0">
               <Image
-                src="/gdg-logo.jpeg" // Replace with your GDG on Campus logo
-                alt="GDG on Campus"
-                width={40}
-                height={40}
-                className="w-8 h-8 sm:w-10 sm:h-10"
+                src="/gdg-logo.jpeg"
+                alt="GDG on Campus Logo"
+                width={44}
+                height={44}
+                className="w-10 h-10 sm:w-11 sm:h-11 transition-transform duration-300 ease-in-out group-hover:rotate-12"
               />
             </div>
             
-            {/* Title */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
-              <h1 className="text-lg sm:text-xl font-semibold text-gray-900 leading-tight">
-                <span className="text-[#4285f4]">GDG</span> on Campus
+            <div className="flex flex-col text-left">
+              <h1 className="text-xl sm:text-2xl font-medium text-gray-700">
+                <span className="font-bold text-[#4285F4]">G</span>
+                <span className="font-bold text-[#EA4335]">D</span>
+                <span className="font-bold text-[#FBBC05]">G</span>
+                <span className="text-gray-600"> on Campus</span>
               </h1>
-              <span className="hidden sm:block text-gray-400">•</span>
-              <p className="text-sm sm:text-base text-gray-600 font-medium">
+              <p className="text-sm text-gray-500">
                 Vignan's Institute of Information Technology
               </p>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
     </header>

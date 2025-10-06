@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Leaderboard from "@/components/leaderboard";
 import StudentProfile from "@/components/profile";
+import LeaderboardPage from "@/components/mainpage";
 interface Participant {
   'User Name': string;
   'User Email': string;
@@ -117,7 +118,7 @@ const mockData2: Participant =  {
 export default function Home() {
   return (
     <div >
-      <Leaderboard data={mockData}/>
+      <LeaderboardPage/>
     </div>
   );
 }
