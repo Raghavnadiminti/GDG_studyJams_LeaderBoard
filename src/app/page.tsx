@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Leaderboard from "@/components/leaderboard";
+import StudentProfile from "@/components/profile";
 interface Participant {
   'User Name': string;
   'User Email': string;
@@ -99,10 +100,24 @@ const mockData: Participant[] = [
   }
   // Add more data as needed
 ];
+
+const mockData2: Participant =  {
+
+  "User Name": "Bhargav Krishna",
+  "User Email": "bhargavjams@gmail.com",
+  "Google Cloud Skill": "https://www.cloudskillsboost.google/public_profiles/a763192e-a4ee-43f9-8433-1c5a092cdfa2",
+  "Profile URL Status": "All Good",
+  "Access Code Redeemed": "Yes",
+  "All Skill Badges": "No",
+  "# of Skill Badges Completed": 12,
+  "Names of Completed Skill Badges": "The Basics of Google Cloud Compute [Skill Badge] | Get Started with Cloud Storage [Skill Badge] | Get Started with Pub/Sub [Skill Badge] | Get Started with API Gateway [Skill Badge] | Get Started with Looker [Skill Badge] | Get Started with Dataplex [Skill Badge] | Get Started with Google Workspace Tools [Skill Badge] | Develop with Apps Script and AppSheet [Skill Badge] | Build a Website on Google Cloud [Skill Badge] | Set Up a Google Cloud Network [Skill Badge] | Store, Process, and Manage Data on Google Cloud - Console [Skill Badge] | App Engine: 3 Ways [Skill Badge]",
+  "# of Arcade Games Completed": 0,
+  "Names of Completed Arcade Games": ""
+}
 export default function Home() {
   return (
     <div >
-      <Leaderboard data={mockData} />
+      <Leaderboard data={mockData}/>
     </div>
   );
 }
