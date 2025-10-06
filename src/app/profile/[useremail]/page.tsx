@@ -67,7 +67,7 @@ const ProfilePage: React.FC = () => {
       setError(null);
 
       const response = await axios.get<DatabaseStudent>(
-        `http://localhost:3000/api/students?email=${encodeURIComponent(userEmail)}`
+        `http://gdgstdj.vercel.app/api/students?email=${encodeURIComponent(userEmail)}`
       );
 
       if (response.data) {
