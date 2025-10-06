@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -23,7 +22,6 @@ interface StudentProfileProps {
 
 const StudentProfile: React.FC<StudentProfileProps> = ({ userData }) => {
   // Parse skill badges from the pipe-separated string
-
   const skillBadges = userData["Names of Completed Skill Badges"]
     ? userData["Names of Completed Skill Badges"]
         .split("|")
@@ -41,16 +39,14 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ userData }) => {
 
   return (
     <div className="min-h-screen bg-gray-50 pt-6">
-      {/* NO HEADER - Using your fixed header */}
-
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         {/* Back Button - Go to Home */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <Link 
             href="/"
-            className="flex items-center space-x-3 text-blue-600 hover:text-blue-700 text-lg font-medium"
+            className="flex items-center space-x-2 sm:space-x-3 text-blue-600 hover:text-blue-700 text-base sm:text-lg font-medium"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             <span>Back to Leaderboard</span>
@@ -58,84 +54,144 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ userData }) => {
         </div>
 
         {/* Profile Title */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-2 sm:mb-4">
             Student Profile
           </h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600">
             Detailed progress and achievements
           </p>
         </div>
 
-        {/* Main Profile Card */}
-        <div className="bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-          {/* Profile Header Row */}
-          <div className="bg-blue-600 px-8 py-6">
+        {/* Main Profile Card - Mobile First Approach */}
+        <div className="bg-white rounded-lg shadow border border-gray-200 overflow-hidden mb-6 sm:mb-8">
+          
+          {/* Desktop Table Header - Hidden on Mobile */}
+          <div className="hidden lg:block bg-blue-600 px-8 py-6">
             <div className="grid grid-cols-12 gap-6 items-center text-white font-bold text-xl">
-        
               <div className="col-span-4">Participant Name</div>
               <div className="col-span-4">Email Address</div>
               <div className="col-span-2 text-center">Skill Badges</div>
-              <div className="col-span-1 text-center">Profile</div>
+              <div className="col-span-2 text-center">Profile</div>
             </div>
           </div>
 
-          {/* Profile Data Row */}
-          <div className="grid grid-cols-12 gap-6 p-8 bg-white">
-           
+          {/* Desktop Table Data - Hidden on Mobile */}
+          <div className="hidden lg:block">
+            <div className="grid grid-cols-12 gap-6 p-8 bg-white">
+              {/* Name Section */}
+              <div className="col-span-4 flex items-center">
+                <div>
+                  <p className="font-bold text-gray-800 text-2xl mb-2">
+                    {userData["User Name"]}
+                  </p>
+                </div>
+              </div>
 
-            {/* Name Section */}
-            <div className="col-span-4 flex items-center">
-              <div>
-                <p className="font-bold text-gray-800 text-2xl mb-2">
+              {/* Email */}
+              <div className="col-span-4 flex items-center">
+                <p className="text-gray-600 text-xl break-all">{userData["User Email"]}</p>
+              </div>
+
+              {/* Badge Count */}
+              <div className="col-span-2 flex items-center justify-center">
+                <div className={`px-6 py-3 rounded-lg font-bold text-2xl ${
+                  userData["# of Skill Badges Completed"] >= 5 
+                    ? "bg-green-100 text-green-800"
+                    : userData["# of Skill Badges Completed"] >= 1
+                    ? "bg-blue-100 text-blue-800"
+                    : "bg-gray-100 text-gray-800"
+                }`}>
+                  {userData["# of Skill Badges Completed"]}
+                </div>
+              </div>
+
+              {/* Profile Link */}
+              <div className="col-span-2 flex items-center justify-center">
+                <a
+                  href={userData["Google Cloud Skill"]}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-bold text-lg"
+                >
+                  View Profile
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile Layout - Stacked Cards */}
+          <div className="lg:hidden">
+            {/* Mobile Header */}
+            <div className="bg-blue-600 px-4 py-4 sm:px-6 sm:py-5">
+              <h2 className="text-white font-bold text-lg sm:text-xl text-center">
+                Student Information
+              </h2>
+            </div>
+
+            {/* Mobile Content */}
+            <div className="p-4 sm:p-6 space-y-6">
+              
+              {/* Name Card */}
+              <div className="border rounded-lg p-4 bg-gray-50">
+                <h3 className="text-sm font-semibold text-gray-600 mb-2">PARTICIPANT NAME</h3>
+                <p className="font-bold text-gray-800 text-lg sm:text-xl">
                   {userData["User Name"]}
                 </p>
-               
               </div>
-            </div>
 
-            {/* Email */}
-            <div className="col-span-4 flex items-center">
-              <p className="text-gray-600 text-xl">{userData["User Email"]}</p>
-            </div>
-
-            {/* Badge Count */}
-            <div className="col-span-2 flex items-center justify-center">
-              <div className={`px-6 py-3 rounded-lg font-bold text-2xl ${
-                userData["# of Skill Badges Completed"] >= 5 
-                  ? "bg-green-100 text-green-800"
-                  : userData["# of Skill Badges Completed"] >= 1
-                  ? "bg-blue-100 text-blue-800"
-                  : "bg-gray-100 text-gray-800"
-              }`}>
-                {userData["# of Skill Badges Completed"]}
+              {/* Email Card */}
+              <div className="border rounded-lg p-4 bg-gray-50">
+                <h3 className="text-sm font-semibold text-gray-600 mb-2">EMAIL ADDRESS</h3>
+                <p className="text-gray-600 text-base sm:text-lg break-all">
+                  {userData["User Email"]}
+                </p>
               </div>
-            </div>
 
-            {/* Profile Link */}
-            <div className="col-span-1 flex items-center justify-center">
-              <a
-                href={userData["Google Cloud Skill"]}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-bold text-lg"
-              >
-                View
-              </a>
+              {/* Badge Count Card */}
+              <div className="border rounded-lg p-4 bg-gray-50">
+                <h3 className="text-sm font-semibold text-gray-600 mb-3">SKILL BADGES COMPLETED</h3>
+                <div className="flex justify-center">
+                  <div className={`px-4 py-3 sm:px-6 sm:py-4 rounded-lg font-bold text-xl sm:text-2xl ${
+                    userData["# of Skill Badges Completed"] >= 5 
+                      ? "bg-green-100 text-green-800"
+                      : userData["# of Skill Badges Completed"] >= 1
+                      ? "bg-blue-100 text-blue-800"
+                      : "bg-gray-100 text-gray-800"
+                  }`}>
+                    {userData["# of Skill Badges Completed"]}
+                  </div>
+                </div>
+              </div>
+
+              {/* Profile Link Card */}
+              <div className="border rounded-lg p-4 bg-gray-50">
+                <h3 className="text-sm font-semibold text-gray-600 mb-3">GOOGLE CLOUD PROFILE</h3>
+                <div className="flex justify-center">
+                  <a
+                    href={userData["Google Cloud Skill"]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-bold text-base sm:text-lg w-full text-center"
+                  >
+                    View Profile
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Simple Additional Information */}
-        <div className="mt-8 bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-          <div className="bg-gray-50 px-8 py-6 border-b border-gray-200">
-            <h2 className="text-2xl font-bold text-gray-800">Additional Information</h2>
+        {/* Additional Information - Responsive Grid */}
+        <div className="bg-white rounded-lg shadow border border-gray-200 overflow-hidden mb-6 sm:mb-8">
+          <div className="bg-gray-50 px-4 py-4 sm:px-8 sm:py-6 border-b border-gray-200">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800">Additional Information</h2>
           </div>
-          <div className="p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div>
-                <p className="text-lg font-semibold text-gray-800 mb-2">Profile URL Status</p>
-                <p className={`text-xl ${
+          <div className="p-4 sm:p-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
+              <div className="border rounded-lg p-4 bg-gray-50 sm:border-0 sm:bg-transparent sm:p-0">
+                <p className="text-base sm:text-lg font-semibold text-gray-800 mb-2">Profile URL Status</p>
+                <p className={`text-lg sm:text-xl ${
                   userData["Profile URL Status"] === "All Good" 
                     ? "text-green-600" 
                     : "text-red-600"
@@ -143,9 +199,9 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ userData }) => {
                   {userData["Profile URL Status"]}
                 </p>
               </div>
-              <div>
-                <p className="text-lg font-semibold text-gray-800 mb-2">Access Code Status</p>
-                <p className={`text-xl ${
+              <div className="border rounded-lg p-4 bg-gray-50 sm:border-0 sm:bg-transparent sm:p-0">
+                <p className="text-base sm:text-lg font-semibold text-gray-800 mb-2">Access Code Status</p>
+                <p className={`text-lg sm:text-xl ${
                   userData["Access Code Redeemed"] === "Yes" 
                     ? "text-green-600" 
                     : "text-red-600"
@@ -153,15 +209,15 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ userData }) => {
                   {userData["Access Code Redeemed"] === "Yes" ? "Redeemed" : "Not Redeemed"}
                 </p>
               </div>
-              <div>
-                <p className="text-lg font-semibold text-gray-800 mb-2">Arcade Games Completed</p>
-                <p className="text-xl text-gray-800">
+              <div className="border rounded-lg p-4 bg-gray-50 sm:border-0 sm:bg-transparent sm:p-0">
+                <p className="text-base sm:text-lg font-semibold text-gray-800 mb-2">Arcade Games Completed</p>
+                <p className="text-lg sm:text-xl text-gray-800">
                   {userData["# of Arcade Games Completed"]} games
                 </p>
               </div>
-              <div>
-                <p className="text-lg font-semibold text-gray-800 mb-2">All Skill Badges Status</p>
-                <p className="text-xl text-gray-800">
+              <div className="border rounded-lg p-4 bg-gray-50 sm:border-0 sm:bg-transparent sm:p-0">
+                <p className="text-base sm:text-lg font-semibold text-gray-800 mb-2">All Skill Badges Status</p>
+                <p className="text-lg sm:text-xl text-gray-800">
                   {userData["All Skill Badges"]}
                 </p>
               </div>
@@ -169,22 +225,22 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ userData }) => {
           </div>
         </div>
 
-        {/* Completed Badges */}
+        {/* Completed Badges - Responsive */}
         {skillBadges.length > 0 && (
-          <div className="mt-8 bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-            <div className="bg-gray-50 px-8 py-6 border-b border-gray-200">
-              <h2 className="text-2xl font-bold text-gray-800">
+          <div className="bg-white rounded-lg shadow border border-gray-200 overflow-hidden mb-6 sm:mb-8">
+            <div className="bg-gray-50 px-4 py-4 sm:px-8 sm:py-6 border-b border-gray-200">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
                 Completed Skill Badges ({skillBadges.length})
               </h2>
             </div>
-            <div className="p-8">
-              <div className="grid grid-cols-1 gap-4">
+            <div className="p-4 sm:p-8">
+              <div className="grid grid-cols-1 gap-3 sm:gap-4">
                 {skillBadges.map((badge, index) => (
-                  <div key={index} className="flex items-center space-x-4 p-6 bg-green-50 rounded-lg border border-green-200">
-                    <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white text-lg font-bold">
+                  <div key={index} className="flex items-center space-x-3 sm:space-x-4 p-4 sm:p-6 bg-green-50 rounded-lg border border-green-200">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-500 rounded-full flex items-center justify-center text-white text-base sm:text-lg font-bold shrink-0">
                       ✓
                     </div>
-                    <span className="text-gray-800 text-xl font-medium">{badge}</span>
+                    <span className="text-gray-800 text-base sm:text-xl font-medium break-words">{badge}</span>
                   </div>
                 ))}
               </div>
@@ -192,38 +248,38 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ userData }) => {
           </div>
         )}
 
-        {/* No Badges Message */}
+        {/* No Badges Message - Responsive */}
         {skillBadges.length === 0 && (
-          <div className="mt-8 bg-white rounded-lg shadow border border-gray-200 p-12 text-center">
-            <h2 className="text-3xl font-bold text-gray-600 mb-4">No skill badges completed yet</h2>
-            <p className="text-xl text-gray-500 mb-6">Start your Google Cloud journey to earn badges</p>
+          <div className="bg-white rounded-lg shadow border border-gray-200 p-8 sm:p-12 text-center mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-600 mb-4">No skill badges completed yet</h2>
+            <p className="text-lg sm:text-xl text-gray-500 mb-6">Start your Google Cloud journey to earn badges</p>
             <a
               href={userData["Google Cloud Skill"]}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-lg font-bold text-xl"
+              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-bold text-lg sm:text-xl inline-block"
             >
               Get Started
             </a>
           </div>
         )}
 
-        {/* Arcade Games */}
+        {/* Arcade Games - Responsive */}
         {arcadeGames.length > 0 && (
-          <div className="mt-8 bg-white rounded-lg shadow border border-gray-200 overflow-hidden">
-            <div className="bg-gray-50 px-8 py-6 border-b border-gray-200">
-              <h2 className="text-2xl font-bold text-gray-800">
+          <div className="bg-white rounded-lg shadow border border-gray-200 overflow-hidden mb-6 sm:mb-8">
+            <div className="bg-gray-50 px-4 py-4 sm:px-8 sm:py-6 border-b border-gray-200">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
                 Completed Arcade Games ({arcadeGames.length})
               </h2>
             </div>
-            <div className="p-8">
-              <div className="grid grid-cols-1 gap-4">
+            <div className="p-4 sm:p-8">
+              <div className="grid grid-cols-1 gap-3 sm:gap-4">
                 {arcadeGames.map((game, index) => (
-                  <div key={index} className="flex items-center space-x-4 p-6 bg-purple-50 rounded-lg border border-purple-200">
-                    <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white text-lg font-bold">
+                  <div key={index} className="flex items-center space-x-3 sm:space-x-4 p-4 sm:p-6 bg-purple-50 rounded-lg border border-purple-200">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-500 rounded-full flex items-center justify-center text-white text-base sm:text-lg font-bold shrink-0">
                       G
                     </div>
-                    <span className="text-gray-800 text-xl font-medium">{game}</span>
+                    <span className="text-gray-800 text-base sm:text-xl font-medium break-words">{game}</span>
                   </div>
                 ))}
               </div>
