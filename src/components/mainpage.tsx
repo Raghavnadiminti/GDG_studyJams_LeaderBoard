@@ -59,7 +59,7 @@ const LeaderboardPage: React.FC = () => {
       setLoading(true);
       setError(null);
 
-      const response = await axios.get<DatabaseParticipant[]>('https://gdgstdj.vercel.app/api/participants');
+      const response = await axios.get<DatabaseParticipant[]>('/api/participants');
 
       if (response.data && Array.isArray(response.data)) {
         const mappedData = mapDatabaseToLeaderboard(response.data);
